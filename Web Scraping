@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan 20 2022
+
+@author: wbwang
+"""
+
+# BAX 422 - Assignment 2 - Web Scraping
+
+# Import the libraries
+import requests
+from bs4 import BeautifulSoup
+
+# Access the URL
+ebay_url = 'https://www.ebay.com/deals'
+response = requests.get(ebay_url)
+
+# Parse the html code with BeautifulSoup
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Find the first "Spotlight Deal"
+spotlight_deal = soup.findAll('h3', class_ = 'dne-itemtile-title ellipse-3')
+print('The first "Spotlight Deal":', spotlight_deal[0].text)
+
+# Find the old price
+old_price = soup.findAll('span', class_ = 'itemtile-price-strikethrough')
+print('The old price:', old_price[0].text)
+
+# Find the reduced price
+reduced_price = soup.findAll('span', class_ = 'first')
+print('The reduced price:', reduced_price[0].text)
