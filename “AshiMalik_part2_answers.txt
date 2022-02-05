@@ -1,0 +1,10 @@
+1. (a) The URL looks like: https://www.barnesandnoble.com/b/books/_/N-1fZ29Z8q8
+
+1. (b) Yes teh URL changed. The URL now looks like: https://www.barnesandnoble.com/b/books/_/N-1fZ29Z8q8?Nrpp=20&page=2; It is a GET request.
+
+1. (c) In the above URL the page number is represented by page=2 and the number of items in the URL is represented by Nrpp=20.
+
+1.(d) After modifying these numbers to view 4 items in the first page the URL looks like:
+https://www.barnesandnoble.com/b/books/_/N-1fZ29Z8q8?Nrpp=40&page=1
+
+1.(e) Inspecting the HTML Source Code we access teach book in the list using the h tag and class = product_info_title. The book's product page is accessed using the a tag by extracting the href element via select statement in python.
