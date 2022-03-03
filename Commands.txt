@@ -1,0 +1,16 @@
+// CRUD
+db.new_collection.insert({msg:"hello"})
+db.new_collection.find()
+db.new_collection.insert({msg:"hello"})
+db.new_collection.find()
+db.new_collection.update({msg:"hello"}, {new_msg:1})
+db.new_collection.find()
+db.new_collection.update({new_msg:1}, {msg:"hello"})
+db.new_collection.find()
+db.new_collection.update({new_msg:1}, {$set:{new_msg:1}}, {multi:1})
+db.new_collection.update({msg:"hello"}, {$set:{new_msg:1}, $unset:{msg:1}}, {multi:1})
+db.new_collection.find()
+
+db.new_collection.update({new_msg:1}, {newer_msg:"lol", something:"else"})
+db.new_collection.update({something:"else"}, {$set:{bla:"blubb"}})
+db.new_collection.remove({something:"else"})
