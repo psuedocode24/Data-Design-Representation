@@ -1,16 +1,32 @@
-// CRUD
-db.new_collection.insert({msg:"hello"})
-db.new_collection.find()
-db.new_collection.insert({msg:"hello"})
-db.new_collection.find()
-db.new_collection.update({msg:"hello"}, {new_msg:1})
-db.new_collection.find()
-db.new_collection.update({new_msg:1}, {msg:"hello"})
-db.new_collection.find()
-db.new_collection.update({new_msg:1}, {$set:{new_msg:1}}, {multi:1})
-db.new_collection.update({msg:"hello"}, {$set:{new_msg:1}, $unset:{msg:1}}, {multi:1})
-db.new_collection.find()
+// INDEX
+db.samples_pokemon.find({candy_count:{$gt:40}})
 
-db.new_collection.update({new_msg:1}, {newer_msg:"lol", something:"else"})
-db.new_collection.update({something:"else"}, {$set:{bla:"blubb"}})
-db.new_collection.remove({something:"else"})
+db.samples_pokemon.getIndexes()
+db.samples_pokemon.createIndex({candy_count:1})
+db.samples_pokemon.getIndexes()
+db.samples_pokemon.dropIndex({candy_count:1})
+db.samples_pokemon.getIndexes()
+
+db.samples_pokemon.createIndex({candy_count:1})
+db.samples_pokemon.find({candy_count:{$gt:40}}) // faster now
+
+
+// MAP-REDUCE
+db.samples_pokemon.find({candy_count:{$exists:1}})
+db.samples_pokemon.mapReduce(
+    function() { emit(this.candy, this.candy_count) },
+    function(key, value) { return Array.sum(value) },
+    {
+        query:{candy_count:{$exists:1}},
+        out:"total_candy"
+    }
+)
+
+db.samples_pokemon.mapReduce(
+    function() { emit(this.candy, this.candy_count) },
+    function(key, value) { return Array.avg(value) },
+    {
+        query:{candy_count:{$exists:1}},
+        out:"avg_candy"
+    }
+)
